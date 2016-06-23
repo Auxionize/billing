@@ -3,19 +3,28 @@
  */
 'use strict';
 
-module.exports = function(sequelize) {
-	let CompanySubscription = require('./lib/models/CompanySubscription')(sequelize);
-	let CompanySubscriptionTransaction = require('./lib/models/CompanySubscriptionTransaction')(sequelize);
-	let Invoice = require('./lib/models/Invoice')(sequelize);
-	let Transaction = require('./lib/models/Transaction')(sequelize);
-	let Wallet = require('./lib/models/Wallet')(sequelize);
+const _ = require('lodash');
+const models = [
+	'CompanySubscription',
+	'CompanySubscriptionTransaction',
+	'Invoice',
+	'Transaction',
+	'Wallet'
+];
+const modelsPath = './lib/models/';
 
-	return {
-		CompanySubscription,
-		CompanySubscriptionTransaction,
-		Invoice,
-		Transaction
-	};
+module.exports = function(sequelize) {
+	let subscriptionUtil = require('./lib/utils/subscriptionUtil');
+	let exportObject = {subscriptionUtil};
+
+	if(!_.isUndefined(sequelize)) {
+		_.forEach(models, function(modelName) {
+			exportObject[modelName] = require(`${modelsPath}${modelName}`)(sequelize);
+		});
+
+	}
+
+	return exportObject;
 
 };
 
