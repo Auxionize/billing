@@ -4,6 +4,7 @@
 'use strict';
 
 const _ = require('lodash');
+const processEnumObject = require('./lib/utils/enum').processEnumObject;
 const models = [
 	'CompanySubscription',
 	'CompanySubscriptionTransaction',
@@ -15,11 +16,33 @@ const modelsPath = './lib/models/';
 
 module.exports = function(sequelize) {
 	let subscriptionUtil = require('./lib/utils/subscriptionUtil');
-	let exportObject = {subscriptionUtil};
+	let CompanySubscriptionStatus = {Pending: '', Active: '', Expired: ''};
+	let InvoiceType = {Proforma: '', Invoice: ''};
+	let InvoiceStatus = {Active: '', Canceled: ''};
+	let TransactionType = {Proforma: '', Invoice: ''};
+	let TransactionSide = {Charge: '', Payment: ''};
+	let TransactionLinkType = {Auction: ''};
+
+	processEnumObject(CompanySubscriptionStatus);
+	processEnumObject(InvoiceType);
+	processEnumObject(InvoiceStatus);
+	processEnumObject(TransactionType);
+	processEnumObject(TransactionSide);
+	processEnumObject(TransactionLinkType);
+
+	let enums = {
+		CompanySubscriptionStatus,
+		InvoiceType,
+		InvoiceStatus,
+		TransactionType,
+		TransactionSide,
+		TransactionLinkType
+	};
+	let exportObject = {subscriptionUtil, enums};
 
 	if(!_.isUndefined(sequelize)) {
 		_.forEach(models, function(modelName) {
-			exportObject[modelName] = require(`${modelsPath}${modelName}`)(sequelize);
+			exportObject[modelName] = require(`${modelsPath}${modelName}`)(sequelize, enums);
 		});
 
 	}
