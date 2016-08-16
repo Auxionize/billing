@@ -22,6 +22,7 @@ module.exports = function(sequelize) {
 	let TransactionType = {Proforma: '', Invoice: ''};
 	let TransactionSide = {Charge: '', Payment: ''};
 	let TransactionLinkType = {Auction: ''};
+	let PaymentType = {PAYPAL: '', EPAY: '', CARD: '', BANK_WIRE: '', OTHER: ''};
 
 	processEnumObject(CompanySubscriptionStatus);
 	processEnumObject(InvoiceType);
@@ -29,6 +30,7 @@ module.exports = function(sequelize) {
 	processEnumObject(TransactionType);
 	processEnumObject(TransactionSide);
 	processEnumObject(TransactionLinkType);
+	processEnumObject(PaymentType);
 
 	let enums = {
 		CompanySubscriptionStatus,
@@ -36,7 +38,8 @@ module.exports = function(sequelize) {
 		InvoiceStatus,
 		TransactionType,
 		TransactionSide,
-		TransactionLinkType
+		TransactionLinkType,
+		PaymentType
 	};
 	let exportObject = {subscriptionUtil, enums};
 
