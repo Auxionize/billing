@@ -1,6 +1,6 @@
 {
   "name": "billing",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Billing module",
   "main": "index.js",
   "scripts": {
