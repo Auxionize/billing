@@ -14,7 +14,7 @@ const models = [
 ];
 const modelsPath = './lib/models/';
 
-module.exports = function(sequelize) {
+module.exports = function(sequelize, config) {
 	let subscriptionUtil = require('./lib/utils/subscriptionUtil');
 	let CompanySubscriptionStatus = {Pending: '', Active: '', Expired: ''};
 	let InvoiceType = {Proforma: '', Invoice: '', CreditNote: ''};
@@ -45,7 +45,7 @@ module.exports = function(sequelize) {
 
 	if(!_.isUndefined(sequelize)) {
 		_.forEach(models, function(modelName) {
-			exportObject[modelName] = require(`${modelsPath}${modelName}`)(sequelize, enums);
+			exportObject[modelName] = require(`${modelsPath}${modelName}`)(sequelize, enums, config);
 		});
 
 	}
