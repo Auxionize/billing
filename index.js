@@ -16,9 +16,10 @@ const models = [
 ];
 
 const modelsPath = './lib/models/';
+let subscriptionUtil = require('./lib/utils/subscriptionUtil');
 
 let billingModule = function(sequelize, config) {
-	let subscriptionUtil = require('./lib/utils/subscriptionUtil');
+
 
 	_.extend(billingEnums, subscriptionUtil.SubscriptionTypeIdent);
 
@@ -36,5 +37,5 @@ let billingModule = function(sequelize, config) {
 };
 
 billingModule.enums = billingEnums;
-
+billingModule.subscriptionUtil = subscriptionUtil;
 module.exports = billingModule;
