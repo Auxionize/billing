@@ -4,6 +4,7 @@
 'use strict';
 
 const _ = require('lodash');
+
 const billingEnums = require('./lib/utils/billingEnums');
 
 const models = [
@@ -18,7 +19,9 @@ const modelsPath = './lib/models/';
 
 let billingModule = function(sequelize, config) {
 	let subscriptionUtil = require('./lib/utils/subscriptionUtil');
-	
+
+	_.extend(billingEnums, subscriptionUtil.SubscriptionTypeIdent);
+
 	let exportObject = {subscriptionUtil, billingEnums};
 
 	if(!_.isUndefined(sequelize)) {
