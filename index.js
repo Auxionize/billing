@@ -20,9 +20,6 @@ let subscriptionUtil = require('./lib/utils/subscriptionUtil');
 
 let billingModule = function(sequelize, config) {
 
-
-	_.extend(billingEnums, subscriptionUtil.SubscriptionTypeIdent);
-
 	let exportObject = {subscriptionUtil, billingEnums};
 
 	if(!_.isUndefined(sequelize)) {
